@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - TOKI THE PET'S STORE</title>
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: pink;
+            padding: 20px;
+            text-align: center;
+            font-size: x-large;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        nav .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav .menu li {
+            margin-left: 20px;
+        }
+
+        nav .menu li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav .menu li a:hover {
+            color: pink;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .profile-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .profile-container p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .profile-container a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: pink;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .profile-container a:hover {
+            background-color: #ff69b4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Profile - TOKI THE PET'S STORE</h1>
+    </header>
+
+    <nav>
+        <div class="logo">TOKI</div>
+        <ul class="menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="favourites.html">Favourites</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="selling.html">Selling</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+    </nav>
+
+    <div class="profile-container">
+        <h2>Profile Details</h2>
+        <div id="profile-details"></div>
+        <a href="home.html">Go to Home</a>
+    </div>
+
+    <script>
+        // Retrieve logged-in user from local storage
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+        if (!loggedInUser) {
+            alert('You are not logged in.');
+            window.location.href = 'login.html'; // Redirect to login page
+        } else {
+            // Display user details
+            document.getElementById('profile-details').innerHTML = `
+                <p><strong>Name:</strong> ${loggedInUser.name}</p>
+                <p><strong>Email:</strong> ${loggedInUser.email}</p>
+                <p><strong>Role:</strong> ${loggedInUser.role}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

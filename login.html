@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .form {
+            display: none;
+        }
+        .form.active {
+            display: block;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .toggle {
+            margin-top: 10px;
+            color: blue;
+            cursor: pointer;
+        }
+        .home-link {
+            margin-top: 15px;
+            display: block;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div id="login" class="form active">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="username" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+            <p class="toggle" onclick="toggleForm()">Don't have an account? Register</p>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="register" class="form">
+            <h2>Register</h2>
+            <input type="text" id="register-name" placeholder="Full Name" required>
+            <input type="email" id="register-email" placeholder="Email" required>
+            <input type="password" id="register-password" placeholder="Password" required>
+            <select id="register-role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button onclick="register()">Register</button>
+            <p class="toggle" onclick="toggleForm()">Already have an account? Login</p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between login and registration forms
+        function toggleForm() {
+            document.getElementById('login').classList.toggle('active');
+            document.getElementById('register').classList.toggle('active');
+        }
+
+        // Function to handle login
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // Retrieve users from local storage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Find the user with matching credentials
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                alert('Login Successful!');
+                localStorage.setItem('loggedInUser', JSON.stringify(user)); // Save logged-in user
+                if (user.role === 'admin') {
+                    window.location.href = 'admin.html'; // Redirect to admin page
+                } else {
+                    window.location.href = 'home.html'; // Redirect to home page
+                }
+            } else {
+                alert('Invalid email or password.');
+            }
+        }
+
+        // Function to handle registration
+        function register() {
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const role = document.getElementById('register-role').value;
+
+            if (name && email && password) {
+                // Create user object
+                const user = { name, email, password, role };
+
+                // Retrieve existing users from local storage
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+
+                // Check if the email is already registered
+                const existingUser = users.find(u => u.email === email);
+                if (existingUser) {
+                    alert('Email already registered. Please log in.');
+                    return;
+                }
+
+                // Add new user to the list
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users)); // Save updated user list
+
+                alert('Registration Successful!');
+                localStorage.setItem('loggedInUser', JSON.stringify(user)); // Save logged-in user
+                window.location.href = 'profile.html'; // Redirect to profile page
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+    </script>
+</body>
+</html>

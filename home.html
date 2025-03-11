@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOKI THE PET'S STORE</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: pink;
+            padding: 20px;
+            text-align: center;
+            font-size: x-large;
+        }
+
+        /* Navigation Bar Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        nav .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        nav .search-bar input[type="text"] {
+            padding: 5px;
+            border: none;
+            border-radius: 3px;
+        }
+
+        nav .search-bar button {
+            padding: 5px 10px;
+            background-color: pink;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        nav .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav .menu li {
+            margin-left: 20px;
+        }
+
+        nav .menu li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav .menu li a:hover {
+            color: pink;
+        }
+
+        /* Pet Card Styles */
+        .pet-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .pet-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pet-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .pet-card .favourite-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: pink;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .pet-card .favourite-button:hover {
+            background-color: #ff69b4;
+        }
+
+        .pet-card .details {
+            padding: 15px;
+        }
+
+        .pet-card .details h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+        }
+
+        .pet-card .details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .pet-card .details .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .pet-card .actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .pet-card .actions button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .pet-card .actions .buy-button {
+            background-color: pink;
+            color: white;
+        }
+
+        .pet-card .actions .buy-button:hover {
+            background-color: #ff69b4;
+        }
+
+        .pet-card .actions .cart-button {
+            background-color: #333;
+            color: white;
+        }
+
+        .pet-card .actions .cart-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TOKI THE PET'S STORE</h1>
+    </header>
+
+    <nav>
+        <div class="logo">TOKI</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+        </div>
+        <ul class="menu">
+            <li><a href="favourites.html">Favourites</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="selling.html">Selling</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+    </nav>
+
+    <!-- Pet Listing Section -->
+    <div class="pet-container">
+        <!-- Pet Card 1 -->
+        <div class="pet-card">
+            <img src="Uploads/pet3.jpg" alt="Golden Retriever">
+            <button class="favourite-button" onclick="addToFavourites('Golden Retriever', 2, 'seller1@example.com', 500)">❤️</button>
+            <div class="details">
+                <h3>Golden Retriever</h3>
+                <p><strong>Breed:</strong> Golden Retriever</p>
+                <p><strong>Age:</strong> 2 years</p>
+                <p><strong>Seller Email:</strong> seller1@example.com</p>
+                <p class="price"><strong>Price:</strong> Rs.5000</p>
+            </div>
+            <div class="actions">
+                <button class="buy-button" onclick="buyNow('Golden Retriever', 2, 'seller1@example.com', 500)">Buy Now</button>
+                <button class="cart-button" onclick="addToCart('Golden Retriever', 2, 'seller1@example.com', 500)">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Pet Card 2 -->
+        <div class="pet-card">
+            <img src="Uploads/cat1.jpg" alt="Siamese Cat">
+            <button class="favourite-button" onclick="addToFavourites('Siamese Cat', 1, 'seller2@example.com', 300)">❤️</button>
+            <div class="details">
+                <h3>Siamese Cat</h3>
+                <p><strong>Breed:</strong> Siamese</p>
+                <p><strong>Age:</strong> 1 year</p>
+                <p><strong>Seller Email:</strong> seller2@example.com</p>
+                <p class="price"><strong>Price:</strong> Rs.3000</p>
+            </div>
+            <div class="actions">
+                <button class="buy-button" onclick="buyNow('Siamese Cat', 1, 'seller2@example.com', 300)">Buy Now</button>
+                <button class="cart-button" onclick="addToCart('Siamese Cat', 1, 'seller2@example.com', 300)">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Pet Card 3 -->
+        <div class="pet-card">
+            <img src="Uploads/pet5.jpg" alt="German Shepherd">
+            <button class="favourite-button" onclick="addToFavourites('German Shepherd', 3, 'seller3@example.com', 700)">❤️</button>
+            <div class="details">
+                <h3>German Shepherd</h3>
+                <p><strong>Breed:</strong> German Shepherd</p>
+                <p><strong>Age:</strong> 3 years</p>
+                <p><strong>Seller Email:</strong> seller3@example.com</p>
+                <p class="price"><strong>Price:</strong> Rs.7000</p>
+            </div>
+            <div class="actions">
+                <button class="buy-button" onclick="buyNow('German Shepherd', 3, 'seller3@example.com', 700)">Buy Now</button>
+                <button class="cart-button" onclick="addToCart('German Shepherd', 3, 'seller3@example.com', 700)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle adding to favourites
+        function addToFavourites(name, age, sellerEmail, price) {
+            const queryParams = new URLSearchParams({
+                name: name,
+                age: age,
+                sellerEmail: sellerEmail,
+                price: price
+            });
+            window.location.href = `favourites.html?${queryParams.toString()}`;
+        }
+
+        // Function to handle buying now
+        function buyNow(name, age, sellerEmail, price) {
+            const queryParams = new URLSearchParams({
+                name: name,
+                age: age,
+                sellerEmail: sellerEmail,
+                price: price
+            });
+            window.location.href = `buy.html?${queryParams.toString()}`;
+        }
+
+        // Function to handle adding to cart
+        function addToCart(name, age, sellerEmail, price) {
+            const queryParams = new URLSearchParams({
+                name: name,
+                age: age,
+                sellerEmail: sellerEmail,
+                price: price
+            });
+            window.location.href = `cart.html?${queryParams.toString()}`;
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - TOKI THE PET'S STORE</title>
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: pink;
+            padding: 20px;
+            text-align: center;
+            font-size: x-large;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        nav .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav .menu li {
+            margin-left: 20px;
+        }
+
+        nav .menu li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav .menu li a:hover {
+            color: pink;
+        }
+
+        .cart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .pet-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pet-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .pet-card .details {
+            padding: 15px;
+        }
+
+        .pet-card .details h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+        }
+
+        .pet-card .details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .pet-card .details .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .pet-card .actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .pet-card .actions button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .pet-card .actions .buy-button {
+            background-color: pink;
+            color: white;
+        }
+
+        .pet-card .actions .buy-button:hover {
+            background-color: #ff69b4;
+        }
+
+        .pet-card .actions .remove-button {
+            background-color: red;
+            color: white;
+        }
+
+        .pet-card .actions .remove-button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Cart - TOKI THE PET'S STORE</h1>
+    </header>
+
+    <nav>
+        <div class="logo">TOKI</div>
+        <ul class="menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="favourites.html">Favourites</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="selling.html">Selling</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+    </nav>
+
+    <div class="cart-container" id="cart-container">
+        <!-- Cart items will be dynamically loaded here -->
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadCartItems();
+        });
+
+        function loadCartItems() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartContainer = document.getElementById("cart-container");
+            cartContainer.innerHTML = ""; // Clear previous content
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = "<p style='text-align:center;'>Your cart is empty.</p>";
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                let petCard = `
+                    <div class="pet-card">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="details">
+                            <h3>${item.name}</h3>
+                            <p><strong>Breed:</strong> ${item.breed}</p>
+                            <p><strong>Age:</strong> ${item.age} years</p>
+                            <p><strong>Seller Email:</strong> ${item.sellerEmail}</p>
+                            <p class="price"><strong>Price:</strong> Rs.${item.price}</p>
+                        </div>
+                        <div class="actions">
+                            <button class="buy-button" onclick="buyNow('${item.name}', '${item.age}', '${item.sellerEmail}', '${item.price}')">Buy Now</button>
+                            <button class="remove-button" onclick="removeFromCart(${index})">Remove</button>
+                        </div>
+                    </div>
+                `;
+                cartContainer.innerHTML += petCard;
+            });
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.splice(index, 1); // Remove item from array
+            localStorage.setItem("cart", JSON.stringify(cart)); // Update storage
+            loadCartItems(); // Refresh cart display
+        }
+
+        function buyNow(name, age, sellerEmail, price) {
+            const queryParams = new URLSearchParams({
+                name: name,
+                age: age,
+                sellerEmail: sellerEmail,
+                price: price
+            });
+            window.location.href = `buy.html?${queryParams.toString()}`;
+        }
+    </script>
+</body>
+</html>
